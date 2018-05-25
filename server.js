@@ -1,6 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const users = require('./routes/api/users')
+const profile = require('./routes/api/profile')
+const posts = require('./routes/api/posts')
+
 // App initialization
 const app = express();
 
@@ -16,6 +20,13 @@ mongoose
 
 // App home route
 app.get('/', (req, res) => res.send('Hello'));
+
+// Use Routes 
+app.use('/api/users', users);
+app.use('/api/posts', posts);
+app.use('/api/profile', profile);
+
+
 
 const port = process.env.PORT || 8000;
 
