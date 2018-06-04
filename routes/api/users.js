@@ -10,6 +10,7 @@ const keys = require("../../config/keys");
 
 // Load Input Validation
 const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 // Load User model
 const User = require("../../models/User");
@@ -69,10 +70,18 @@ router.post("/register", (req, res) => {
 // @access   Public
 
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email: req.body.email }).then(user => {
     // Check for user
     if (!user) {
-      res.status(404).json({ email: "User not found" });
+      errors.email = "User not found";
+      res.status(404).json(errors);
     } else {
       // Check password
       bcrypt.compare(req.body.password, user.password).then(isMatch => {
@@ -93,7 +102,8 @@ router.post("/login", (req, res) => {
             }
           );
         } else {
-          res.status(400).json({ password: "Incorrect password" });
+          errors.password = "Incorrect password";
+          res.status(400).json(errors);
         }
       });
     }
