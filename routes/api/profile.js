@@ -13,9 +13,9 @@ const Profile = require("../../models/Profile");
 
 router.get("/test", (req, res) => res.json({ msg: "Profile works" }));
 
-// @route    GET api/profile/test
-// @desc     Tests profile route
-// @access   Public
+// @route    GET api/profile
+// @desc     Get current users profile
+// @access   Private
 
 router.get(
   "/",
