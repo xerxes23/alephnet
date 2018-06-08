@@ -201,6 +201,10 @@ router.post(
   }
 );
 
+// @route    POST api/profile/education
+// @desc     Add education to profile
+// @access   Private
+
 router.post(
   "/education",
   passport.authenticate("jwt", { session: false }),
@@ -228,6 +232,27 @@ router.post(
 
       profile.save().then(profile => res.json(profile));
     });
+  }
+);
+
+// @route    DELETE api/profile/experience
+// @desc     Delete experience from profile
+// @access   Private
+
+router.delete(
+  "/experience/:exp_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Filter out selected experience
+        profile.experience = profile.experience.filter(exp => {
+          return exp.id !== req.params.exp_id;
+        });
+        // Save to database
+        profile.save().then(profile => res.json(profile));
+      })
+      .catch(err => res.status(404).json(err));
   }
 );
 
