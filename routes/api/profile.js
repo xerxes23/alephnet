@@ -256,4 +256,43 @@ router.delete(
   }
 );
 
+// @route    DELETE api/profile/education
+// @desc     Delete education from profile
+// @access   Private
+
+router.delete(
+  "/education/:edu_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Filter out selected experience
+        profile.education = profile.education.filter(edu => {
+          return edu.id !== req.params.edu_id;
+        });
+        // Save to database
+        profile.save().then(profile => res.json(profile));
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// @route    DELETE api/profile
+// @desc     Delete user and profile
+// @access   Private
+
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOneAndRemove({ user: req.params.user_id })
+      .then(() => {
+        User.findOneAndRemove({ _id: req.user.id }).then(() =>
+          res.json({ success: true })
+        );
+      })
+      .catch(err => res.status(400).json(err));
+  }
+);
+
 module.exports = router;
