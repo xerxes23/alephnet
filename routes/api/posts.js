@@ -9,6 +9,7 @@ const validatePostInput = require("../../validation/post");
 // Load models
 const Post = require("../../models/Post");
 const User = require("../../models/User");
+const Profile = require("../../models/Profile");
 
 // @route    GET api/posts/test
 // @desc     Tests posts route
@@ -28,7 +29,7 @@ router.get("/", (req, res) => {
 });
 
 // @route    GET api/posts/:id
-// @desc     Get all posts
+// @desc     Get post by id
 // @access   Public
 
 router.get("/:id", (req, res) => {
@@ -62,6 +63,29 @@ router.post(
     });
 
     newPost.save().then(post => res.json(post));
+  }
+);
+
+// @route    Delete api/posts/:id
+// @desc     Delete post by id
+// @access   Private
+
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Post.findById(req.params.id)
+      .then(post => {
+        // Check for owner
+        if (post.user.toString() !== req.user.id) {
+          return res.status(401).json({ notauthorized: "User not authorized" });
+        }
+        // Delete
+        post.remove().then(() => res.json({ success: true }));
+      })
+      .catch(err =>
+        res.status(404).json({ nopostfound: "No post found with that ID" })
+      );
   }
 );
 
