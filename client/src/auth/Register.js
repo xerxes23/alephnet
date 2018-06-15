@@ -5,7 +5,8 @@ export default class Register extends Component {
     name: "",
     email: "",
     password: "",
-    password2: ""
+    password2: "",
+    errors: {}
   };
 
   onSubmit = e => {
