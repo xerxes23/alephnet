@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     name: "",
     email: "",
@@ -15,7 +16,6 @@ export default class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    console.log(user);
   };
 
   onChange = e => {
@@ -62,3 +62,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default Login;
