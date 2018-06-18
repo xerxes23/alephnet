@@ -1,13 +1,11 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import { Map, List } from "immutable";
+import { Map } from "immutable";
 import thunk from "redux-thunk";
 import rootReducers from "./reducers";
 
 // Middleware
 const middlewares = [thunk];
 const middleware = applyMiddleware(...middlewares);
-
-const initialState = Map({});
 
 // Store
 const store = createStore(

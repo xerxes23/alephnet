@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { Map } from "immutable";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { loginUser } from "../actions/authActions";
 
 class Login extends Component {
   state = {
@@ -16,6 +19,7 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
+    this.props.loginUser(user);
   };
 
   onChange = e => {
@@ -63,4 +67,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.instanceOf(Map).isRequired,
+  errors: PropTypes.instanceOf(Map).isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(mapStateToProps, { loginUser })(Login);
