@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import classnames from "classnames";
-import { Map } from "immutable";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
@@ -12,13 +11,19 @@ class Login extends Component {
     errors: {}
   };
 
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.get("isAuthenticated")) {
+    if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
 
     if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors.toJS() });
+      this.setState({ errors: nextProps.errors });
     }
   }
 
@@ -90,8 +95,8 @@ class Login extends Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.instanceOf(Map).isRequired,
-  errors: PropTypes.instanceOf(Map).isRequired
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

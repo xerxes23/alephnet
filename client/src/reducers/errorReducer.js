@@ -1,12 +1,13 @@
-import { Map, fromJS } from "immutable";
 import * as types from "../actions//types";
 
-const initialState = Map();
+const initialState = {};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_ERRORS:
-      return state.merge(fromJS(action.payload));
+      return {
+        ...action.payload
+      };
 
     default:
       return state;

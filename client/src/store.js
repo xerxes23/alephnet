@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import { Map } from "immutable";
 import thunk from "redux-thunk";
 import rootReducers from "./reducers";
 
