@@ -1,9 +1,9 @@
-import { Map } from "immutable";
+import { Map, fromJS } from "immutable";
 import * as types from "../actions//types";
 import isEmpty from "../validations/is-empty";
 
 const initialState = Map({
-  auth: false,
+  isAuthenticated: false,
   user: Map()
 });
 
@@ -12,8 +12,8 @@ const reducer = (state = initialState, action) => {
     case types.SET_CURRENT_USER:
       return state.update(state => {
         return state
-          .set("auth", !isEmpty(action.payload))
-          .set("user", Map(action.payload));
+          .set("isAuthenticated", !isEmpty(action.payload))
+          .set("user", fromJS(action.payload));
       });
     default:
       return state;
