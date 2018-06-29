@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import classnames from "classnames";
 import { registerUser } from "../../actions/authActions";
 import TextFieldGroup from "../common/TextFieldGroup";
 
@@ -64,6 +63,7 @@ class Register extends Component {
                   onChange={this.onChange}
                   error={errors.name}
                 />
+
                 <TextFieldGroup
                   placeholder="Email"
                   name="email"
