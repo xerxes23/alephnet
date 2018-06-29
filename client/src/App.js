@@ -10,11 +10,11 @@ import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 
 // Components
-import Footer from "./layout/Footer";
-import Navbar from "./layout/Navbar";
-import Landing from "./layout/Landing";
-import Login from "./auth/Login";
-import Register from "./auth/Register";
+import Footer from "./components/layout/Footer";
+import Navbar from "./components/layout/Navbar";
+import Landing from "./components/layout/Landing";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 
 // Maintaining user logged in
 
@@ -28,7 +28,6 @@ if (localStorage.jwtToken) {
   // Logout users with expired tokens
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
-    
     // Logout user
     store.dispatch(logoutUser());
     // TODO: Clear current profile
