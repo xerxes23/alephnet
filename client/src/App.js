@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import "./App.css";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
+import { clearCurrentProfile } from "./actions/profileActions";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
+
+// CSS
+import "./App.css";
 
 // Store
 import store from "./store";
@@ -16,7 +19,6 @@ import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";
-import { clearCurrentProfile } from "./actions/profileActions";
 
 // Maintaining user logged in
 
