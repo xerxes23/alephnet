@@ -1,6 +1,7 @@
 import * as types from "./types";
 import axios from "axios";
 
+// Get Current User
 export const getCurrentProfile = () => dispatch => {
   dispatch(setProfileLoading());
   axios
@@ -25,7 +26,6 @@ export const setProfileLoading = () => ({
 });
 
 // Clear Profile
-
 export const clearCurrentProfile = () => ({
   type: types.CLEAR_CURRENT_PROFILE
 });
