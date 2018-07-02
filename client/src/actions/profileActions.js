@@ -33,6 +33,27 @@ export const createProfile = (profileData, history) => dispatch => {
     );
 };
 
+// Delete Account and Profile
+
+export const deleteAccount = () => dispatch => {
+  if (window.confirm("Are you sure? This cannot be undone!")) {
+    axios
+      .delete("/api/profile")
+      .then(res =>
+        dispatch({
+          type: types.SET_CURRENT_USER,
+          payload: {}
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: types.GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  }
+};
+
 // Profile Loading
 export const setProfileLoading = () => ({
   type: types.PROFILE_LOADING
