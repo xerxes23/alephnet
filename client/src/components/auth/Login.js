@@ -1,25 +1,31 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
-import TextFieldGroup from "../common/TextFieldGroup";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/authActions';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class Login extends Component {
-  state = {
-    email: "",
-    password: "",
-    errors: {}
-  };
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+      errors: {}
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.props.history.push('/dashboard');
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.props.history.push('/dashboard');
     }
 
     if (nextProps.errors) {
@@ -27,18 +33,20 @@ class Login extends Component {
     }
   }
 
-  onSubmit = e => {
+  onSubmit(e) {
     e.preventDefault();
-    const user = {
+
+    const userData = {
       email: this.state.email,
       password: this.state.password
     };
-    this.props.loginUser(user);
-  };
 
-  onChange = e => {
+    this.props.loginUser(userData);
+  }
+
+  onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-  };
+  }
 
   render() {
     const { errors } = this.state;
@@ -52,15 +60,16 @@ class Login extends Component {
               <p className="lead text-center">
                 Sign in to your DevConnector account
               </p>
-              <form noValidate onSubmit={this.onSubmit}>
+              <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
-                  placeholder="Email"
+                  placeholder="Email Address"
                   name="email"
                   type="email"
                   value={this.state.email}
                   onChange={this.onChange}
                   error={errors.email}
                 />
+
                 <TextFieldGroup
                   placeholder="Password"
                   name="password"
@@ -90,7 +99,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { loginUser }
-)(Login);
+export default connect(mapStateToProps, { loginUser })(Login);

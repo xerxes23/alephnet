@@ -1,23 +1,21 @@
-import * as types from "../actions/types";
-import isEmpty from "../validations/is-empty";
+import isEmpty from '../validation/is-empty';
+
+import { SET_CURRENT_USER } from '../actions/types';
 
 const initialState = {
   isAuthenticated: false,
   user: {}
 };
 
-const reducer = (state = initialState, action) => {
+export default function(state = initialState, action) {
   switch (action.type) {
-    case types.SET_CURRENT_USER:
+    case SET_CURRENT_USER:
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
       };
-
     default:
       return state;
   }
-};
-
-export default reducer;
+}

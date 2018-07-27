@@ -1,4 +1,9 @@
-import * as types from "../actions/types";
+import {
+  GET_PROFILE,
+  GET_PROFILES,
+  PROFILE_LOADING,
+  CLEAR_CURRENT_PROFILE
+} from '../actions/types';
 
 const initialState = {
   profile: null,
@@ -6,37 +11,31 @@ const initialState = {
   loading: false
 };
 
-const reducer = (state = initialState, action) => {
+export default function(state = initialState, action) {
   switch (action.type) {
-    case types.PROFILE_LOADING:
+    case PROFILE_LOADING:
       return {
         ...state,
         loading: true
       };
-
-    case types.GET_PROFILE:
+    case GET_PROFILE:
       return {
         ...state,
         profile: action.payload,
         loading: false
       };
-
-    case types.CLEAR_CURRENT_PROFILE:
-      return {
-        ...state,
-        profile: null
-      };
-
-    case types.GET_PROFILES:
+    case GET_PROFILES:
       return {
         ...state,
         profiles: action.payload,
         loading: false
       };
-
+    case CLEAR_CURRENT_PROFILE:
+      return {
+        ...state,
+        profile: null
+      };
     default:
       return state;
   }
-};
-
-export default reducer;
+}
