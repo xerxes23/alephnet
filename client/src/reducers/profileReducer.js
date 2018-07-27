@@ -27,6 +27,13 @@ const reducer = (state = initialState, action) => {
         profile: null
       };
 
+    case types.GET_PROFILES:
+      return {
+        ...state,
+        profiles: action.payload,
+        loading: false
+      };
+
     default:
       return state;
   }

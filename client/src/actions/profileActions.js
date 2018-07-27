@@ -77,6 +77,25 @@ export const deleteExperience = id => dispatch => {
     );
 };
 
+// Get all profiles
+export const getProfiles = () => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get("/api/profile/all")
+    .then(res =>
+      dispatch({
+        type: types.GET_PROFILES,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: types.GET_PROFILES,
+        payload: null
+      })
+    );
+};
+
 // Delete Education
 export const deleteEducation = id => dispatch => {
   axios
