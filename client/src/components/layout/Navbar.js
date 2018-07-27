@@ -76,7 +76,7 @@ class Navbar extends Component {
               <li className="nav-item">
                 <Link className="nav-link" to="/profiles">
                   {" "}
-                  Software Engineers
+                  Software Engineers and Developers
                 </Link>
               </li>
             </ul>
